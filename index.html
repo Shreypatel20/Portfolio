@@ -1055,6 +1055,182 @@ footer .foot-name { font-family: var(--font-head); font-weight: 800; color: var(
 .js-ready [data-reveal] { opacity: 0; transform: translateY(30px); }
 .js-ready [data-reveal].revealed { opacity: 1; transform: translateY(0); }
 
+/* Staggered reveal delays for timeline cards */
+.timeline [data-reveal]:nth-child(1) { transition-delay: 0s; }
+.timeline [data-reveal]:nth-child(2) { transition-delay: 0.1s; }
+.timeline [data-reveal]:nth-child(3) { transition-delay: 0.2s; }
+.timeline [data-reveal]:nth-child(4) { transition-delay: 0.3s; }
+
+/* ═══════════════════════════════════════
+   TYPEWRITER CURSOR (HERO ROLES)
+═══════════════════════════════════════ */
+#hero-typewriter {
+  font-family: var(--font-body); font-size: clamp(0.9rem, 1.8vw, 1.15rem);
+  font-weight: 700; color: var(--accent); letter-spacing: 0.02em;
+  border-right: 2px solid var(--accent);
+  padding-right: 3px;
+  animation: blink-cursor 0.75s step-end infinite;
+  white-space: nowrap; overflow: hidden;
+  display: inline-block;
+}
+@keyframes blink-cursor { 0%,100%{border-color:var(--accent)} 50%{border-color:transparent} }
+
+/* ═══════════════════════════════════════
+   RIPPLE EFFECT ON SKILL CHIPS
+═══════════════════════════════════════ */
+.sg-chip { position: relative; overflow: hidden; }
+.chip-ripple {
+  position: absolute; border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  transform: scale(0); animation: ripple-out 0.5s linear;
+  pointer-events: none;
+}
+@keyframes ripple-out {
+  to { transform: scale(4); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════
+   FLOATING TOOLTIP ON SKILL CHIPS
+═══════════════════════════════════════ */
+.sg-chip[data-tip] { cursor: default; }
+.sg-chip[data-tip]::before {
+  content: attr(data-tip);
+  position: absolute; bottom: calc(100% + 8px); left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: rgba(9,14,26,0.95); color: var(--text);
+  font-family: var(--font-body); font-size: 0.65rem; font-weight: 600;
+  padding: 0.3rem 0.7rem; border-radius: 8px;
+  border: 1px solid var(--border-hover);
+  white-space: nowrap; opacity: 0; pointer-events: none;
+  transition: opacity 0.2s, transform 0.2s;
+  z-index: 10;
+}
+.sg-chip[data-tip]:hover::before {
+  opacity: 1; transform: translateX(-50%) translateY(0);
+}
+
+/* ═══════════════════════════════════════
+   LIVE CLOCK BADGE
+═══════════════════════════════════════ */
+.live-clock-badge {
+  display: inline-flex; align-items: center; gap: 0.5rem;
+  font-family: var(--font-head); font-size: 0.7rem; font-weight: 700;
+  letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--muted); background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border); border-radius: 100px;
+  padding: 0.3rem 0.9rem; margin-top: 0.75rem;
+  width: fit-content;
+}
+.live-clock-badge .clock-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--accent); animation: pulse 2s infinite;
+}
+#live-time { color: var(--accent); font-weight: 800; }
+
+/* ═══════════════════════════════════════
+   SECTION COUNTER BADGE (EXPERIENCE)
+═══════════════════════════════════════ */
+.section-count-badge {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  font-family: var(--font-head); font-size: 0.65rem; font-weight: 800;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--accent2); background: hsla(var(--hue-accent2), 90%, 65%, 0.07);
+  border: 1px solid hsla(var(--hue-accent2), 90%, 65%, 0.2);
+  padding: 0.25rem 0.85rem; border-radius: 100px; margin-left: 1rem;
+  vertical-align: middle;
+}
+
+/* ═══════════════════════════════════════
+   MAGNETIC HOVER — CTA BUTTONS
+═══════════════════════════════════════ */
+.btn-primary, .btn-resume, .btn-ghost {
+  will-change: transform;
+}
+
+/* ═══════════════════════════════════════
+   SKILL GROUP MOUSE-TRACKED SPOTLIGHT
+═══════════════════════════════════════ */
+.skill-group {
+  --mx: 50%; --my: 50%;
+}
+
+/* ═══════════════════════════════════════
+   ANIMATED GRADIENT BORDER — EXP CARDS
+═══════════════════════════════════════ */
+@keyframes borderPulse {
+  0%,100% { opacity: 0.45; }
+  50% { opacity: 1; }
+}
+.exp-card:hover::before { animation: borderPulse 1.5s ease-in-out infinite; }
+
+/* ═══════════════════════════════════════
+   GLITCH HOVER ON HERO NAME
+═══════════════════════════════════════ */
+.hero-name:hover .name-last {
+  animation: gradientShift 1.5s ease infinite alternate, glitchFlash 0.15s steps(1) 3;
+}
+@keyframes glitchFlash {
+  0%   { text-shadow: -2px 0 var(--accent2), 2px 0 var(--accent3); }
+  33%  { text-shadow:  2px 0 var(--accent2), -2px 0 var(--accent3); }
+  66%  { text-shadow: -1px 0 var(--accent),  1px 0 var(--accent2); }
+  100% { text-shadow: none; }
+}
+
+/* ═══════════════════════════════════════
+   PULSE RING ON AVAILABILITY DOT
+═══════════════════════════════════════ */
+@keyframes pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(16,185,129,0.5); }
+  70%  { box-shadow: 0 0 0 8px rgba(16,185,129,0); }
+  100% { box-shadow: 0 0 0 0 rgba(16,185,129,0); }
+}
+
+/* ═══════════════════════════════════════
+   FLOATING PARTICLES ON CTA CLICK
+═══════════════════════════════════════ */
+.burst-particle {
+  position: fixed; pointer-events: none; z-index: 999;
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--accent);
+  animation: burst-fly 0.7s ease-out forwards;
+}
+@keyframes burst-fly {
+  0%   { transform: translate(0,0) scale(1); opacity: 1; }
+  100% { transform: translate(var(--bx), var(--by)) scale(0); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════
+   SCROLL-LINKED SECTION PROGRESS LINE
+═══════════════════════════════════════ */
+#section-progress {
+  position: fixed; right: 1.5rem; top: 50%; transform: translateY(-50%);
+  display: flex; flex-direction: column; gap: 10px;
+  z-index: 80; align-items: center;
+}
+.sec-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: rgba(255,255,255,0.15); cursor: pointer;
+  transition: var(--transition); position: relative;
+}
+.sec-dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 6px var(--accent-glow);
+  transform: scale(1.5);
+}
+.sec-dot::after {
+  content: attr(data-label);
+  position: absolute; right: 1.2rem; top: 50%; transform: translateY(-50%);
+  font-family: var(--font-body); font-size: 0.6rem; font-weight: 700;
+  letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--muted); white-space: nowrap;
+  opacity: 0; transition: opacity 0.2s;
+  pointer-events: none;
+  background: rgba(9,14,26,0.85); padding: 0.2rem 0.6rem;
+  border-radius: 6px; border: 1px solid var(--border);
+}
+.sec-dot:hover::after, .sec-dot.active::after { opacity: 1; }
+@media (max-width: 1024px) { #section-progress { display: none; } }
+
 /* ═══════════════════════════════════════
    RESPONSIVE DESIGN GRID
 ═══════════════════════════════════════ */
@@ -1097,6 +1273,15 @@ footer .foot-name { font-family: var(--font-head); font-weight: 800; color: var(
 <body>
 
 <div id="aurora-bg"></div>
+<nav id="section-progress" aria-label="Page sections" style="right:1.5rem;left:auto;">
+  <div class="sec-dot" data-target="hero"       data-label="Hero"></div>
+  <div class="sec-dot" data-target="about"      data-label="About"></div>
+  <div class="sec-dot" data-target="experience" data-label="Experience"></div>
+  <div class="sec-dot" data-target="projects"   data-label="Projects"></div>
+  <div class="sec-dot" data-target="skills"     data-label="Skills"></div>
+  <div class="sec-dot" data-target="education"  data-label="Education"></div>
+  <div class="sec-dot" data-target="contact"    data-label="Contact"></div>
+</nav>
 <canvas class="hero-canvas" id="constellationCanvas"></canvas>
 <div id="cursor-glow"></div>
 <div id="progress-bar"></div>
@@ -1168,11 +1353,8 @@ footer .foot-name { font-family: var(--font-head); font-weight: 800; color: var(
       <span class="name-last">Patel</span>
     </h1>
     <div class="hero-roles-bar">
-      <span class="hero-role-item active">Frontend Engineer</span>
-      <span class="hero-role-divider">|</span>
-      <span class="hero-role-item">UI/UX Engineer</span>
-      <span class="hero-role-divider">|</span>
-      <span class="hero-role-item">Software Engineer</span>
+      <span class="hero-role-item" style="padding-left:0;color:var(--muted);font-weight:500;padding-right:0.4rem;">I build as a</span>
+      <span id="hero-typewriter"></span>
     </div>
     <p class="hero-desc">
       A frontend-focused engineer who builds <strong>fast, accessible, and beautifully crafted React applications</strong>. I bridge the gap between design and engineering — turning Figma wireframes into production-ready component code people actually enjoy using.
@@ -1292,6 +1474,7 @@ footer .foot-name { font-family: var(--font-head); font-weight: 800; color: var(
         </div>
         <div class="avail-sub">Open to full-time &amp; contract opportunities</div>
         <div class="avail-location">Available anywhere in the USA — remote &amp; on-site</div>
+        <div class="live-clock-badge"><span class="clock-dot"></span>Chicago Time — <span id="live-time">--:--</span></div>
       </div>
       <div class="bento-card">
         <div class="ic-label">Location</div>
@@ -1347,6 +1530,44 @@ footer .foot-name { font-family: var(--font-head); font-weight: 800; color: var(
     <h2 class="section-title">Experience</h2>
   </div>
   <div class="timeline">
+
+    <div class="exp-card" data-reveal>
+      <div class="exp-top">
+        <div class="exp-role">Software and Web Developer</div>
+        <div class="exp-date">May 2026 – Present</div>
+      </div>
+      <div class="exp-company">Primeflexi Tech LLC · Remote</div>
+      <ul class="exp-bullets">
+        <li>Build <strong>responsive and accessible company websites</strong> using HTML5, CSS3, React, and Angular, applying HCI methodologies to optimize user interfaces for improved usability.</li>
+        <li>Develop and test <strong>embedded software, dashboards, and control panels</strong> for plastics recycling machinery.</li>
+        <li>Collaborate with senior engineers to <strong>debug, test, and improve</strong> software performance and scalability.</li>
+        <li>Diagnose and resolve software issues, <strong>documenting fixes</strong> for internal teams and clients.</li>
+        <li>Participate in <strong>code reviews, Git workflows, and Agile/Scrum</strong> development processes.</li>
+      </ul>
+      <div class="exp-tags">
+        <span class="exp-tag">HTML5</span><span class="exp-tag">CSS3</span>
+        <span class="exp-tag">React</span><span class="exp-tag">Angular</span>
+        <span class="exp-tag">HCI</span><span class="exp-tag">Git</span>
+        <span class="exp-tag">Agile/Scrum</span>
+      </div>
+    </div>
+
+    <div class="exp-card purple" data-reveal>
+      <div class="exp-top">
+        <div class="exp-role">Software Developer — Volunteer</div>
+        <div class="exp-date purple">Feb 2026 – May 2026</div>
+      </div>
+      <div class="exp-company">Community Dreams Foundation · Remote</div>
+      <ul class="exp-bullets">
+        <li>Developed and maintained <strong>nonprofit software applications</strong> using Python, Java, and C# to support community-facing programs.</li>
+        <li>Collaborated with cross-functional teams including <strong>product managers and designers</strong> to deliver scalable, high-quality solutions.</li>
+        <li>Contributed across the <strong>full software development lifecycle</strong>: design, implementation, testing, and maintenance.</li>
+      </ul>
+      <div class="exp-tags">
+        <span class="exp-tag">Python</span><span class="exp-tag">Java</span>
+        <span class="exp-tag">C#</span><span class="exp-tag">Full SDLC</span>
+      </div>
+    </div>
 
     <div class="exp-card" data-reveal>
       <div class="exp-top">
@@ -1599,83 +1820,71 @@ footer .foot-name { font-family: var(--font-head); font-weight: 800; color: var(
         <span class="sg-title">Languages</span>
       </div>
       <div class="sg-chips">
-        <span class="sg-chip hot">JavaScript (ES6+)</span>
-        <span class="sg-chip ts-chip">TypeScript</span>
-        <span class="sg-chip hot">HTML5</span>
-        <span class="sg-chip hot">CSS3</span>
+        <span class="sg-chip hot" data-tip="Semantic markup & accessibility">HTML5</span>
+        <span class="sg-chip hot" data-tip="Animations, Grid, Flexbox">CSS3</span>
+        <span class="sg-chip hot" data-tip="ES6+, async/await, DOM">JavaScript</span>
         <span class="sg-chip">Python</span>
-        <span class="sg-chip">C / C++</span>
+        <span class="sg-chip">PHP</span>
+        <span class="sg-chip">Java</span>
+        <span class="sg-chip">C#</span>
+        <span class="sg-chip">SQL</span>
       </div>
     </div>
     
     <div class="skill-group">
       <div class="sg-title-row">
         <svg class="sg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.53c-.26-.81-1-1.4-1.9-1.4h-1v-3c0-.55-.45-1-1-1h-6v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.4z"/></svg>
-        <span class="sg-title">Frameworks &amp; Libs</span>
+        <span class="sg-title">Frameworks &amp; Libraries</span>
       </div>
       <div class="sg-chips">
-        <span class="sg-chip hot">React</span>
-        <span class="sg-chip hot">Material-UI (MUI)</span>
-        <span class="sg-chip ts-chip">Next.js</span>
-        <span class="sg-chip ts-chip">Tailwind CSS</span>
-        <span class="sg-chip">React Hooks</span>
-        <span class="sg-chip">Context API</span>
-      </div>
-    </div>
-    
-    <div class="skill-group">
-      <div class="sg-title-row">
-        <svg class="sg-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
-        <span class="sg-title">Frontend Expertise</span>
-      </div>
-      <div class="sg-chips">
-        <span class="sg-chip hot">Responsive Design</span>
-        <span class="sg-chip hot">Accessibility (WCAG 2.1)</span>
-        <span class="sg-chip">Component Architecture</span>
-        <span class="sg-chip">Cross-Browser Testing</span>
-        <span class="sg-chip">UI Performance</span>
-        <span class="sg-chip">REST API Integration</span>
-      </div>
-    </div>
-    
-    <div class="skill-group">
-      <div class="sg-title-row">
-        <svg class="sg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"/></svg>
-        <span class="sg-title">Testing &amp; Quality</span>
-      </div>
-      <div class="sg-chips">
-        <span class="sg-chip ts-chip">Jest</span>
-        <span class="sg-chip ts-chip">React Testing Library</span>
-        <span class="sg-chip hot">Lighthouse</span>
-        <span class="sg-chip hot">axe DevTools</span>
-        <span class="sg-chip">QA / Code Reviews</span>
-      </div>
-    </div>
-    
-    <div class="skill-group">
-      <div class="sg-title-row">
-        <svg class="sg-icon" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.3C.5 6.7.9 9.8 2.9 11.8c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.6z"/></svg>
-        <span class="sg-title">Tools &amp; Platforms</span>
-      </div>
-      <div class="sg-chips">
-        <span class="sg-chip hot">Git &amp; GitHub</span>
-        <span class="sg-chip hot">Figma</span>
-        <span class="sg-chip">VS Code</span>
-        <span class="sg-chip">npm / yarn</span>
+        <span class="sg-chip hot" data-tip="Hooks, Context, Component arch.">React</span>
+        <span class="sg-chip hot" data-tip="Components, services, RxJS">Angular</span>
+        <span class="sg-chip hot">Material-UI</span>
+        <span class="sg-chip">Bootstrap</span>
+        <span class="sg-chip">Responsive Web Design</span>
         <span class="sg-chip">WordPress</span>
       </div>
     </div>
     
     <div class="skill-group">
       <div class="sg-title-row">
-        <svg class="sg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
-        <span class="sg-title">Workflow</span>
+        <svg class="sg-icon" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-2 10h-4v4h-2v-4H7v-2h4V7h2v4h4v2z"/></svg>
+        <span class="sg-title">Databases</span>
       </div>
       <div class="sg-chips">
-        <span class="sg-chip hot">Agile / Scrum</span>
-        <span class="sg-chip">GitHub Projects</span>
-        <span class="sg-chip">Sprint Planning</span>
-        <span class="sg-chip">Code Reviews</span>
+        <span class="sg-chip hot" data-tip="Relational DB & query design">MySQL</span>
+        <span class="sg-chip">PostgreSQL</span>
+        <span class="sg-chip">MongoDB</span>
+      </div>
+    </div>
+    
+    <div class="skill-group">
+      <div class="sg-title-row">
+        <svg class="sg-icon" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93z"/></svg>
+        <span class="sg-title">Design &amp; UX</span>
+      </div>
+      <div class="sg-chips">
+        <span class="sg-chip hot" data-tip="Wireframes, prototypes, design systems">Figma</span>
+        <span class="sg-chip hot">UI/UX Design</span>
+        <span class="sg-chip hot">HCI Methodologies</span>
+        <span class="sg-chip">Lighthouse</span>
+      </div>
+    </div>
+    
+    <div class="skill-group">
+      <div class="sg-title-row">
+        <svg class="sg-icon" viewBox="0 0 24 24"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.3C.5 6.7.9 9.8 2.9 11.8c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.6z"/></svg>
+        <span class="sg-title">Tools &amp; Cloud</span>
+      </div>
+      <div class="sg-chips">
+        <span class="sg-chip hot" data-tip="Version control & branching">Git</span>
+        <span class="sg-chip hot">GitHub</span>
+        <span class="sg-chip hot" data-tip="Integration & API design">RESTful APIs</span>
+        <span class="sg-chip">AWS</span>
+        <span class="sg-chip hot" data-tip="Sprints, standups, retrospectives">Agile/Scrum</span>
+        <span class="sg-chip">Jira</span>
+        <span class="sg-chip">Power BI</span>
+        <span class="sg-chip">Microsoft Excel</span>
       </div>
     </div>
     
@@ -2087,30 +2296,7 @@ projTabs.forEach(tab => {
 });
 
 
-// ── 3D TILT EFFECT FOR BENTO & TIMELINE CARDS ──
-const tiltCards = document.querySelectorAll('.bento-card, .exp-card, .proj-card-full, .dev-sandbox');
 
-tiltCards.forEach(card => {
-  card.addEventListener('mousemove', e => {
-    const rect = card.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    const xc = rect.width / 2;
-    const yc = rect.height / 2;
-    
-    const angleX = (yc - y) / 18;
-    const angleY = (x - xc) / 18;
-    
-    card.style.transform = `perspective(1000px) rotateX(${angleX}deg) rotateY(${angleY}deg) translateY(-2px)`;
-    card.style.setProperty('--mx', (x / rect.width * 100).toFixed(1) + '%');
-    card.style.setProperty('--my', (y / rect.height * 100).toFixed(1) + '%');
-  });
-  
-  card.addEventListener('mouseleave', () => {
-    card.style.transform = '';
-  });
-});
 
 
 // ── CURSOR GLOW COORDINATES ──
@@ -2261,6 +2447,153 @@ contactForm.addEventListener('submit', async e => {
     formBtn.disabled = false;
   }
 });
+
+
+// ── TYPEWRITER HERO ROLES ──
+(function() {
+  const el = document.getElementById('hero-typewriter');
+  if (!el) return;
+  const roles = [
+    'Frontend Engineer',
+    'UI/UX Engineer',
+    'Software Developer',
+    'React Developer',
+    'Web Developer'
+  ];
+  let roleIdx = 0, charIdx = 0, deleting = false;
+
+  function tick() {
+    const current = roles[roleIdx];
+    if (!deleting) {
+      el.textContent = current.slice(0, charIdx + 1);
+      charIdx++;
+      if (charIdx === current.length) {
+        setTimeout(() => { deleting = true; tick(); }, 2000);
+        return;
+      }
+      setTimeout(tick, 80);
+    } else {
+      el.textContent = current.slice(0, charIdx - 1);
+      charIdx--;
+      if (charIdx === 0) {
+        deleting = false;
+        roleIdx = (roleIdx + 1) % roles.length;
+        setTimeout(tick, 300);
+        return;
+      }
+      setTimeout(tick, 40);
+    }
+  }
+  tick();
+})();
+
+
+// ── LIVE CLOCK (CHICAGO / US-CENTRAL) ──
+function updateClock() {
+  const el = document.getElementById('live-time');
+  if (!el) return;
+  const now = new Date().toLocaleTimeString('en-US', {
+    timeZone: 'America/Chicago',
+    hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: true
+  });
+  el.textContent = now;
+}
+updateClock();
+setInterval(updateClock, 1000);
+
+
+// ── SKILL CHIP RIPPLE ──
+document.querySelectorAll('.sg-chip').forEach(chip => {
+  chip.addEventListener('click', e => {
+    const r = document.createElement('span');
+    r.className = 'chip-ripple';
+    const size = Math.max(chip.offsetWidth, chip.offsetHeight);
+    const rect = chip.getBoundingClientRect();
+    r.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX-rect.left-size/2}px;top:${e.clientY-rect.top-size/2}px;`;
+    chip.appendChild(r);
+    r.addEventListener('animationend', () => r.remove());
+  });
+});
+
+
+// ── SKILL GROUP MOUSE-TRACKED SPOTLIGHT ──
+document.querySelectorAll('.skill-group').forEach(group => {
+  group.addEventListener('mousemove', e => {
+    const rect = group.getBoundingClientRect();
+    group.style.setProperty('--mx', ((e.clientX - rect.left) / rect.width * 100).toFixed(1) + '%');
+    group.style.setProperty('--my', ((e.clientY - rect.top) / rect.height * 100).toFixed(1) + '%');
+  });
+});
+
+
+// ── BURST PARTICLES ON PRIMARY CTA CLICK ──
+document.querySelectorAll('.btn-primary, .btn-resume').forEach(btn => {
+  btn.addEventListener('click', e => {
+    const colors = ['var(--accent)', 'var(--accent2)', 'var(--accent3)', '#10b981'];
+    for (let i = 0; i < 14; i++) {
+      const p = document.createElement('div');
+      p.className = 'burst-particle';
+      const angle = (i / 14) * Math.PI * 2;
+      const dist = 55 + Math.random() * 45;
+      p.style.left = e.clientX + 'px';
+      p.style.top  = e.clientY + 'px';
+      p.style.background = colors[i % colors.length];
+      p.style.setProperty('--bx', Math.cos(angle) * dist + 'px');
+      p.style.setProperty('--by', Math.sin(angle) * dist + 'px');
+      document.body.appendChild(p);
+      p.addEventListener('animationend', () => p.remove());
+    }
+  });
+});
+
+
+// ── SECTION PROGRESS DOTS ──
+(function() {
+  const dots = document.querySelectorAll('.sec-dot');
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => {
+      const target = document.getElementById(dot.dataset.target);
+      if (target) target.scrollIntoView({ behavior: 'smooth' });
+    });
+  });
+
+  const sectionIds = ['hero','about','experience','projects','skills','education','contact'];
+  const secEls = sectionIds.map(id => document.getElementById(id)).filter(Boolean);
+
+  const dotObs = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        dots.forEach(d => d.classList.remove('active'));
+        const match = document.querySelector(`.sec-dot[data-target="${entry.target.id}"]`);
+        if (match) match.classList.add('active');
+      }
+    });
+  }, { threshold: 0.3 });
+
+  secEls.forEach(s => dotObs.observe(s));
+})();
+
+
+// ── MAGNETIC HOVER ON CTA BUTTONS ──
+document.querySelectorAll('.btn-primary, .btn-resume, .btn-ghost').forEach(btn => {
+  btn.addEventListener('mousemove', e => {
+    const rect = btn.getBoundingClientRect();
+    const dx = (e.clientX - rect.left - rect.width  / 2) * 0.22;
+    const dy = (e.clientY - rect.top  - rect.height / 2) * 0.22;
+    btn.style.transform = `translate(${dx}px, ${dy}px)`;
+  });
+  btn.addEventListener('mouseleave', () => {
+    btn.style.transform = '';
+  });
+});
+
+
+// ── SMOOTH SCROLL SNAPPING FOR BACK-TOP ──
+document.getElementById('back-top').addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+
 </script>
 </body>
 </html>
